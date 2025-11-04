@@ -8,48 +8,54 @@ public class Tp3CodeSecret {
     public static void main(String[] args) {
 
         Random random = new Random(); 
-        String code = "";
         Scanner scan = new Scanner(System.in);
-        Boolean isContinue = true;
+        boolean isContinue = true;
 
-        generateCode(random, code);
-        
-        while (isContinue == true) {
+
+        String code = generateCode(random);
+        System.out.println("CODE SECRET : " + code);
+
+        while (isContinue) {
             System.out.print("Veuillez entrer un code : ");
             String userCode = scan.next();
-            System.out.println("CODE " + userCode);
-            
+            System.out.println("CODE UTILISATEUR : " + userCode);
+
+
             char[] codeSecretArray = code.toCharArray();
-            System.out.println("CODE " + codeSecretArray[0]);
             char[] userCodeArray = userCode.toCharArray();
-            System.out.println("CODE " + userCodeArray[0]);
-                       
-            isContinue = isContinueGame(isContinue,scan);
+
+            System.out.println("Tableau du code secret :");
+            for (char c : codeSecretArray) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+
+            System.out.println("Tableau du code utilisateur :");
+            for (char c : userCodeArray) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+
+            isContinue = isContinueGame(scan);
         }
 
         scan.close();
     }
 
-	private static void generateCode(Random random, String code) {
-		for (int i = 0; i < 4; i++) {
+    // Méthode qui génère et retourne un code à 4 chiffres
+    private static String generateCode(Random random) {
+        String code = "";
+        for (int i = 0; i < 4; i++) {
             int chiffre = random.nextInt(10);
             code += chiffre; 
         }
+        return code;
+    }
 
-        System.out.println("CODE " + code);
-	}
-
-	private static Boolean isContinueGame(Boolean isContinue, Scanner scan) {
-		
-		 System.out.print("Voulez-vous réessayer ? (taper O ou N) : ");
-		 System.out.println();
-		 String choice = scan.next();
-		
-		if (choice.equalsIgnoreCase("O")) {
-      
-		} else {
-			  isContinue = false;
-		}
-		return isContinue;
-	}
+    // Méthode qui demande à l'utilisateur s'il veut continuer
+    private static boolean isContinueGame(Scanner scan) {
+        System.out.print("Voulez-vous réessayer ? (taper O ou N) : ");
+        String choice = scan.next();
+        return choice.equalsIgnoreCase("O");
+    }
 }
