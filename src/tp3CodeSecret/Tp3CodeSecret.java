@@ -10,6 +10,7 @@ public class Tp3CodeSecret {
         Random random = new Random(); 
         Scanner scan = new Scanner(System.in);
         boolean isContinue = true;
+        int inCorrectPostion = 0;
 
 
         String code = generateCode(random);
@@ -24,25 +25,23 @@ public class Tp3CodeSecret {
             char[] codeSecretArray = code.toCharArray();
             char[] userCodeArray = userCode.toCharArray();
 
-            System.out.println("Tableau du code secret :");
-            for (char c : codeSecretArray) {
-                System.out.print(c + " ");
-            }
-            System.out.println();
+            for (int i_index = 0; i_index < codeSecretArray.length; i_index++) {
+            	if (codeSecretArray[i_index] == userCodeArray[i_index]) {
 
-            System.out.println("Tableau du code utilisateur :");
-            for (char c : userCodeArray) {
-                System.out.print(c + " ");
+            		inCorrectPostion ++;
+            		
+            	}
+            	
             }
-            System.out.println();
 
-            isContinue = isContinueGame(scan);
+            System.out.println(inCorrectPostion + " chiffre bien placé ; 1 chiffre mal placé");
+            isContinue = isContinueGame(isContinue,scan);
         }
 
         scan.close();
     }
 
-    // Méthode qui génère et retourne un code à 4 chiffres
+
     private static String generateCode(Random random) {
         String code = "";
         for (int i = 0; i < 4; i++) {
@@ -52,10 +51,17 @@ public class Tp3CodeSecret {
         return code;
     }
 
-    // Méthode qui demande à l'utilisateur s'il veut continuer
-    private static boolean isContinueGame(Scanner scan) {
-        System.out.print("Voulez-vous réessayer ? (taper O ou N) : ");
-        String choice = scan.next();
-        return choice.equalsIgnoreCase("O");
-    }
+	private static Boolean isContinueGame(Boolean isContinue, Scanner scan) {
+		
+		 System.out.print("Voulez-vous réessayer ? (taper O ou N) : ");
+		 System.out.println();
+		 String choice = scan.next();
+		
+		if (choice.equalsIgnoreCase("O")) {
+     
+		} else {
+			  isContinue = false;
+		}
+		return isContinue;
+	}
 }
